@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "863359606594",
+    "project_id": "mini-projetexam",
+    "storage_bucket": "mini-projetexam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863359606594:android:e3a73401f6a537fb4cb2db",
+        "android_client_info": {
+          "package_name": "com.example.khedma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863359606594-afvhc62uin7l6s4a3t5slfv8tkao5eoe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQIRbImfIO9tEZ0j86Cy6F7LZoJAB8bvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863359606594-afvhc62uin7l6s4a3t5slfv8tkao5eoe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

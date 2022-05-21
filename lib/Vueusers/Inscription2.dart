@@ -48,7 +48,7 @@ class _inscription2 extends StatelessWidget {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Container(
-        color: const Color.fromARGB(255, 171, 172, 182),
+        color: Color.fromARGB(255, 214, 215, 223),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +63,7 @@ class _inscription2 extends StatelessWidget {
                 ),
                 SizedBox(height: 2),
               ]),
-              Column(
+              Form(child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -114,7 +114,7 @@ class _inscription2 extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
+          )],
           ),
         ),
       ),
@@ -134,7 +134,7 @@ Widget makeInput({label, obsureText = false}) {
       const SizedBox(
         height: 5,
       ),
-      TextField(
+      TextFormField(
         obscureText: obsureText,
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
