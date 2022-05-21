@@ -1,16 +1,17 @@
 class prestation {
-  int CodeDemande;
-  int idcreater;
+  int codeDemande;
+
+  get getCodeDemande => this.codeDemande;
+
+ set setCodeDemande( codeDemande) => this.codeDemande = codeDemande;  int idcreater;
+String lieu;
+  DateTime date;
 
   get getIdcreater => this.idcreater;
 
  set setIdcreater( idcreater) => this.idcreater = idcreater;  String Details;
-  String lieu;
-  DateTime date;
+  
 
-  get getCodeDemande => this.CodeDemande;
-
-  set setCodeDemande(CodeDemande) => this.CodeDemande = CodeDemande;
 
   get getDetails => this.Details;
 
@@ -24,7 +25,7 @@ class prestation {
 
   set setDate(date) => this.date = date;
   prestation({
-    required this.CodeDemande,
+    required this.codeDemande,
     required this.idcreater,
     required this.Details,
     required this.lieu,

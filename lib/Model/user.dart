@@ -1,49 +1,54 @@
 class user {
   int id;
-  String Nom;
-  String Prenom;
-  String Genre;
-  String Email;
-  String MDP;
-  String Tel;
-  String Role;
+  String nom;
+  String prenom;
+  String genre;
+  String email;
+  String mdp;
+  String tel;
+  String role;
 
+ int get getId => this.id;
+
+ set setId(int id) => this.id = id;
+
+  get getNom => this.nom;
+
+ set setNom( nom) => this.nom = nom;
+
+  get getPrenom => this.prenom;
+
+ set setPrenom( prenom) => this.prenom = prenom;
+
+  get getGenre => this.genre;
+
+ set setGenre( genre) => this.genre = genre;
+
+  get getEmail => this.email;
+
+ set setEmail( email) => this.email = email;
+
+  get getMdp => this.mdp;
+
+ set setMdp( mdp) => this.mdp = mdp;
+
+  get getTel => this.tel;
+
+ set setTel( tel) => this.tel = tel;
+
+  get getRole => this.role;
+
+ set setRole( role) => this.role = role;
   user({
     required this.id,
-    required this.Nom,
-    required this.Prenom,
-    required this.Genre,
-    required this.Email,
-    required this.MDP,
-    required this.Tel,
-    required this.Role,
+    required this.nom,
+    required this.prenom,
+    required this.genre,
+    required this.email,
+    required this.mdp,
+    required this.tel,
+    required this.role,
   });
 
-  get getNom => this.Nom;
-
-  set setNom(Nom) => this.Nom = Nom;
-
-  get getPrenom => this.Prenom;
-
-  set setPrenom(Prenom) => this.Prenom = Prenom;
-
-  get getGenre => this.Genre;
-
-  set setGenre(Genre) => this.Genre = Genre;
-
-  get getEmail => this.Email;
-
-  set setEmail(Email) => this.Email = Email;
-
-  get getMDP => this.MDP;
-
-  set setMDP(MDP) => this.MDP = MDP;
-
-  get getTel => this.Tel;
-
-  set setTel(Tel) => this.Tel = Tel;
-
-  get getRole => this.Role;
-
-  set setRole(Role) => this.Role = Role;
+  
 }

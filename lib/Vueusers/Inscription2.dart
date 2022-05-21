@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'login.dart';
 
 class inscription2 extends StatelessWidget {
   @override
@@ -13,6 +16,13 @@ class inscription2 extends StatelessWidget {
 }
 
 class _inscription2 extends StatelessWidget {
+  String nom = "";
+  String prenom = "";
+  String email = "";
+  String pass = "";
+  String confirmPass = "";
+  String role = "";
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,58 +73,138 @@ class _inscription2 extends StatelessWidget {
                 ),
                 SizedBox(height: 2),
               ]),
-              Form(child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 45, vertical: 40),
-                    child: Column(
-                      children: [
-                        makeInput(label: "Nom"),
-                        makeInput(label: "Prenom"),
-                        makeInput(label: "Email"),
-                        makeInput(label: "Password", obsureText: true),
-                        makeInput(label: "Confirm Pasword", obsureText: true),
-                        makeInputdropdown(label: "Role", obsureText: false)
-                      ],
+              Form(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 45, vertical: 40),
+                      child: Column(
+                        children: [
+                          makeInput(
+                            label: "Nom",
+                            onSaved: (value) {
+                              nom = value!;
+                            },
+                          ),
+                          makeInput(
+                              label: "Prenom",
+                              onSaved: (value) {
+                                prenom = value!;
+                              }),
+                          makeInput(
+                              label: "Email",
+                              onSaved: (value) {
+                                email = value!;
+                              }),
+                          makeInput(
+                              label: "Password",
+                              obsureText: true,
+                              onSaved: (value) {
+                                pass = value!;
+                              }),
+                          makeInput(
+                              label: "Confirm Pasword",
+                              obsureText: true,
+                              onSaved: (value) {
+                                confirmPass = value!;
+                              }),
+                          makeInputdropdown(
+                            label: "Role",
+                            obsureText: false,
+                            onChanged: (value) {
+                              role = value.toString();
+                            },
+                            role: role,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Container(
-                      padding: const EdgeInsets.only(top: 3, left: 3),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        /*border: const Border(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 3, left: 3),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          /*border: const Border(
                                 bottom: BorderSide(color: Colors.black),
                                 top: BorderSide(color: Colors.black),
                                 right: BorderSide(color: Colors.black),
                                 left: BorderSide(color: Colors.black)
                             )*/
-                      ),
-                      child: MaterialButton(
-                        minWidth: double.infinity,
-                        height: 60,
-                        onPressed: () {},
-                        color: const Color.fromRGBO(255, 87, 34, 1),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(60)),
-                        child: const Text(
-                          "S'inscrire",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
+                        ),
+                        child: MaterialButton(
+                          minWidth: double.infinity,
+                          height: 60,
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              try {
+                                final credential = await FirebaseAuth.instance
+                                    .createUserWithEmailAndPassword(
+                                  email: email,
+                                  password: pass,
+                                );
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'weak-password') {
+                                  print('The password provided is too weak.');
+                                } else if (e.code == 'email-already-in-use') {
+                                  print(
+                                      'The account already exists for that email.');
+                                }
+                              } catch (e) {
+                                print(e);
+                              }
+                            }
+                          },
+                          color: const Color.fromRGBO(255, 87, 34, 1),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(60)),
+                          child: const Text(
+                            "S'inscrire",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 140,
-                  ),
-                ],
-              ),
-          )],
+                    const SizedBox(
+                      height: 140,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "New to limonade business ? ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: "TTFirsNueu",
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return LoginScreen();
+                            }));
+                          },
+                          child: Text(
+                            "SignUp Here",
+                            style: TextStyle(
+                              color: Color(0xFFDEDC2A),
+                              fontSize: 20,
+                              fontFamily: "TTFirsNueu",
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),
@@ -122,7 +212,8 @@ class _inscription2 extends StatelessWidget {
   }
 }
 
-Widget makeInput({label, obsureText = false}) {
+Widget makeInput(
+    {label, obsureText = false, required void Function(String?) onSaved}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -146,24 +237,30 @@ Widget makeInput({label, obsureText = false}) {
           border:
               OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
         ),
+        onSaved: onSaved,
       ),
       const SizedBox(
         height: 30,
-      )
+      ),
     ],
   );
 }
 
-Widget makeInputdropdown({label, obsureText = false}) {
-  List<DropdownMenuItem<String>> list = [];
-  list.add(const DropdownMenuItem(
-    child: Text('Employeur'),
-    value: 'employeur',
-  ));
-  list.add(const DropdownMenuItem(
-    child: Text('Employé'),
-    value: 'employer',
-  ));
+Widget makeInputdropdown(
+    {label,
+    obsureText = false,
+    required Function(Object?) onChanged,
+    required String role}) {
+  List<DropdownMenuItem<String>> list = [
+    const DropdownMenuItem(
+      child: Text('Employeur'),
+      value: 'employeur',
+    ),
+    const DropdownMenuItem(
+      child: Text('Employé'),
+      value: 'employer',
+    )
+  ];
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,7 +276,7 @@ Widget makeInputdropdown({label, obsureText = false}) {
       ),
       DropdownButton(
         items: list,
-        onChanged: (Object? value) {},
+        onChanged: onChanged,
       ),
       const SizedBox(
         height: 10,
